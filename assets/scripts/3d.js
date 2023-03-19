@@ -137,44 +137,17 @@ export class ControlCamera {
 export class MovementCamera extends ControlCamera {
   direction = new THREE.Vector3();
   canMove = true;
-  world;
   constructor(o) {
     super(o);
-  }
-
-  setWorld(world) {
-    this.world = world;
   }
   
   onMovement = function(s) {return s};
   
-  // moveUp(s = 0.03) {
-  //   const forward = 
-  //   this.camera.getWorldDirection(new THREE.Vector3(0, 0, -1))
-  //   this.camera.translateZ((4 - (Math.cos(forward.y) * 3)) * (-s));
-  //   this.camera.position.y = 0;
-  // }
-
   moveUp(s = 0.03) {
-    const start = this.camera.position.clone();
-    const end = start.clone().add(this.camera.getWorldDirection(new THREE.Vector3(0, 0, -1)).multiplyScalar(s));
-    const forward = this.camera.getWorldDirection(new THREE.Vector3(0, 0, -1))
-  
-    const results = this.world.rayTest(start, end);
-    if (results) {
-      const nearestResult = results.reduce((nearest, result) => {
-        if (result.distance < nearest.distance) {
-          return result;
-        } else {
-          return nearest;
-        }
-      }, results[0]);
-  
-      this.camera.position.copy(nearestResult.point);
-    } else {
-      this.camera.translateZ((4 - (Math.cos(forward.y) * 3)) * (-s));
-      this.camera.position.y = 0;
-    }
+    const forward = 
+    this.camera.getWorldDirection(new THREE.Vector3(0, 0, -1))
+    this.camera.translateZ((4 - (Math.cos(forward.y) * 3)) * (-s));
+    this.camera.position.y = 0;
   }
   
   moveLeft(s = 0.03) {

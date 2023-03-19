@@ -30,6 +30,7 @@ function parseLevel(txt, name) {
   });
   map.run(txt);
   
+  // Returns a promise that returns 
   return new Promise(
     res => map.finished(() => res(arr))
   );
@@ -38,6 +39,7 @@ function parseLevel(txt, name) {
 export async function loadLevel({name, scene, camera}) {
   const txt = await getLevel(`/assets/scripts/3d/levels/${name}.txt`);
   const level = await parseLevel(txt, name);
+  console.log(level)
   level.addToScene(scene);
 
   return scene;

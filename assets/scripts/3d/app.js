@@ -20,15 +20,11 @@ eventOnce("resize", () => {
 
 var currentScene;
 var currentCam;
-var currentWorld;
 
 export function setCurrentScene(e) {currentScene = e}
 
 export function setCurrentCam(e) {currentCam = e}
 
-export function setCurrentWorld(e) {currentWorld = e}
-
 export const renderLoop = stopLoop(() => {
-  currentWorld.stepSimulation(1/30, 10)
   renderer.render(currentScene, currentCam);
 }, false);

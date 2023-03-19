@@ -110,30 +110,13 @@ class Level {
   addToScene(scene, world) {
     this.rows.forEach((row, i) => {
       row.items.forEach((item, j) => {
-        if (!item) return
+        if (!item) return;
         const mesh = item.generate()
-        if (!mesh) return
+        if (!mesh) return;
         mesh.position.x = i * this.settings.tileSpacing - this.settings.spawnX * this.settings.tileSpacing
         mesh.position.z = j * this.settings.tileSpacing - this.settings.spawnZ * this.settings.tileSpacing
         scene.add(mesh)
-
-        if (item.collide) {
-          const shape = new Ammo.btBoxShape(new Ammo.btVector3(item.width / 2, item.height / 2, item.width / 2));
-          const mass = 0;
-          const localInertia = new Ammo.btVector3(0, 0, 0);
-          shape.calculateLocalInertia(mass, localInertia);
-          
-          const transform = new Ammo.btTransform();
-          transform.setIdentity();
-          transform.setOrigin(new Ammo.btVector3(mesh.position.x, mesh.position.y, mesh.position.z));
-          
-          const motionState = new Ammo.btDefaultMotionState(transform);
-          const rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, motionState, shape, localInertia);
-          const body = new Ammo.btRigidBody(rbInfo);
-          
-          world.addRigidBody(body);
-        }
-      })
+      });
     })
 
     return scene

@@ -2,7 +2,7 @@ import {stopLoop, stepLoop, $, RADIAN_HALF, clamp, parseCSS, $$} from "../util.j
 import {loadLevel} from "./levelLoader.js";
 import {newCamera, updateCamera, MovementCamera, message} 
 from "../3d.js";
-import {setCurrentCam, setCurrentScene, setCurrentWorld, renderLoop} 
+import {setCurrentCam, setCurrentScene, renderLoop} 
 from "./app.js";
 import {settings, settingsObj} from "../settings.js";
 
@@ -22,26 +22,15 @@ const controlKeys = [
   "ArrowLeft",
   "ArrowDown",
   "ArrowRight",
-]
-/*
-stopLoop(() => {
-  cam.moveUp();
-});
-*/
+];
+
 
 async function play() {
-  // loadLevel({
-  //   name: "tutorial",
-  //   scene,
-  //   camera: cam.camera,
-  // }).then(main);
-  await Ammo();
-  const world = setupPhysics();
-  setCurrentWorld(world);
-  const level = (await import("./levels/tutorial.js")).default;
-  level.addToScene(scene, world);
-  cam.setWorld(world);
-  main()
+  loadLevel({
+    name: "tutorial",
+    scene,
+    camera: cam.camera,
+  }).then(main);
 }
 
 function main() {
@@ -65,33 +54,6 @@ function main() {
   
   addMobileControls();
   addMouseControls();
-  // Ammo().then(setupPhysics);
-}
-
-function setupPhysics(physicsWorld) {
-  const collisionOpts = 
-  new Ammo.btDefaultCollisionConfiguration();
-  
-  const dispatcher = 
-  new Ammo.btCollisionDispatcher(collisionOpts);
-  
-  const overlapCache = 
-  new Ammo.btDbvtBroadphase();
-  
-  const solver = 
-  new Ammo.btSequentialImpulseConstraintSolver();
-  
-  const world =
-  new Ammo.btDiscreteDynamicsWorld(
-    dispatcher,
-    overlapCache,
-    solver,
-    collisionOpts,
-  );
-  
-  world.setGravity(new Ammo.btVector3(0, -9.81, 0));
-
-  return world;
 }
 
 function addMobileControls() {
