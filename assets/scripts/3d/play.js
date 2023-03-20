@@ -30,6 +30,7 @@ async function play() {
     name: "tutorial",
     scene,
     camera: cam.camera,
+    definitions: [],
   }).then(main);
 }
 
